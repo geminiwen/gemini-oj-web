@@ -1,4 +1,37 @@
-{% extends "common/header.twig" %}
+{% extends "common/framework.twig" %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="/static/main/css/index.css" />
+{% endblock %}
+
 {% block title %}
     Gemini Online Judge
+{% endblock %}
+{% block contents %}
+    <div class="wrapper">
+        <div class="container">
+            <h3>Problems</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr><td>#</td><td>Title</td><td>Difficulty Rate</td></tr>
+                </thead>
+                <tbody >
+                    {% for problem in problems %}
+                    <tr>
+                        <td width="33%">{{ loop.index0 }}</td>
+                        <td width="33%">
+                            <a href="/problem/{{ problem.id }}">{{ problem.title }}</a>
+                        </td>
+                        <td width="33%">
+                            {% if problem.submit == 0 %}
+                             No submits
+                            {% else %}
+                                {{ problem.accept * 100 / problem.submit }}%
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

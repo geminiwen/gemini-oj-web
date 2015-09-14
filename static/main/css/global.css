@@ -1,0 +1,27 @@
+.global-nav {
+    position: relative;
+    background: #222E2A;
+    color: white;
+}
+
+.global-nav .nav {
+    padding: 15px;
+    color: #008E59;
+    font-size: 25px;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-center {
+    text-align: center;
+}

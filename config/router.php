@@ -7,7 +7,9 @@
  */
 
 $routes = [
-    "/" => 'Welcome#index'
+    "get:/" => 'Welcome#index',
+    "get:/problem/[id]" => "Problem#detail",
+    'get:/problem/[id]/submit' => "Problem#submitForm"
 ];
 
 return $routes;

@@ -1,0 +1,32 @@
+.problem-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.problem-spec td {
+    padding: 5px 5px;
+    color: #008E59;
+    text-align: left;
+}
+
+.problem-spec td:nth-child(odd) {
+    text-align: right;
+}
+
+.problem-detail {
+    font-size: 20px;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+aside {
+    margin-bottom: 10px;
+}
+
+blockquote {
+    border-color: #008E59;
+    color: #555;
+    font-size: 1em;
+}

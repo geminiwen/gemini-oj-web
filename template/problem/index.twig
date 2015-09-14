@@ -1,0 +1,55 @@
+{% extends "common/framework.twig" %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/static/main/css/problem/index.css" />
+{% endblock %}
+
+{% block title %}
+    Problem {{ problem.title }} - Gemini Online Judge
+{% endblock %}
+
+{% block contents %}
+    <div class="container">
+        <div class="problem-title" >
+            <div class="center-block h1 title"> {{ problem.title }} </div>
+            <table class="center problem-spec">
+                <tbody>
+                <tr>
+                    <td>Time Limit: {{ problem.time_limit }}MS</td>
+                    <td>Memory Limit: {{ problem.memory_limit }}KB</td>
+                </tr>
+                <tr>
+                    <td>Total: {{ problem.submit }}</td>
+                    <td>Accept: {{ problem.accept }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="problem-detail">
+            <section>
+                <aside>Description</aside>
+                <blockquote>{{ problem.description }}</blockquote>
+            </section>
+            <section>
+                <aside>Input</aside>
+                <blockquote>{{ problem.input }}</blockquote>
+            </section>
+            <section>
+                <aside>Output</aside>
+                <blockquote>{{ problem.output }}</blockquote>
+            </section>
+            <section>
+                <aside>Sample Input</aside>
+                <blockquote>{{ problem.sample_input }}</blockquote>
+            </section>
+            <section>
+                <aside>Sample Output</aside>
+                <blockquote>{{ problem.sample_output }}</blockquote>
+            </section>
+            <div class="content-center">
+                <button type="button" class="btn btn-default" onclick="location.href='/problem/{{ problem.id }}/submit'">Submit</button>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
