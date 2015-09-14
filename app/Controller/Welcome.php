@@ -9,11 +9,12 @@
 namespace Gemini\controller;
 
 
+use Gemini\Result\Twig;
 use L8\Mvc\Controller\AbstractController;
 
 class Welcome extends AbstractController
 {
     public function index() {
-
+        return new Twig("index.twig");
     }
 }
