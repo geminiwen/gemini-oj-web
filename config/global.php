@@ -13,6 +13,13 @@ $object = [
         'root', '123456', [
             PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8mb4'
         ]]]],
+    'amqp'          => ["AMQPConnection", [
+        [
+            "host" => $dbHost,
+            "vhost" => "/",
+            "login" => "gemini",
+            "password" => "123456"
+        ]
+    ]]
 ];
-
 return $object;

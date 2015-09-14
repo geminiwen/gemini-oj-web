@@ -26,7 +26,4 @@ class Problem extends AbstractModel
                                          ["id", "title", "accept", "submit"]);
     }
 
-    public function queryById($id) {
-        return $this->getTable()->findBy(["id" => $id]);
-    }
 }
