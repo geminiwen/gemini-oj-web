@@ -7,7 +7,7 @@
  */
 
 $routes = [
-    "/" => '\Gemini\Controller\Welcome#index'
+    "/" => 'Welcome#index'
 ];
 
 return $routes;
