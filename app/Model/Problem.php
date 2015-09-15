@@ -26,4 +26,7 @@ class Problem extends AbstractModel
                                          ["id", "title", "accept", "submit"]);
     }
 
+    public function setById($id, $data) {
+        return $this->getTable()->setBy(["id" => $id], $data);
+    }
 }

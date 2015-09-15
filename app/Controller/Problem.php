@@ -53,11 +53,13 @@ class Problem extends AbstractController {
         $statusDAO = new Status();
         $problemDAO = new \Gemini\Model\Problem();
 
-        $statusId = $statusDAO->add([
+        $status = $statusDAO->add([
            "problem_id" => $id,
            "language" => $language,
            "code" => $code
         ]);
+
+        $statusId = $status['id'];
 
         $suffix = [
             "c" => ".c",
@@ -67,20 +69,35 @@ class Problem extends AbstractController {
         ];
 
         $problem = $problemDAO->get($id);
+        $submit = $problem['submit'] + 1;
+        $problemDAO->setById($id, ['submit' => $submit]);
 
-        $execPath = App::prop("exec.tmp.dir") . uniqid(time());
-        $outputPath = App::prop("exec.tmp.dir") . uniqid(time());
-        $sourcePath = $execPath . $suffix[$language];
+        $workDir = App::prop("exec.tmp.dir") . uniqid(time());
+        mkdir($workDir);
+
+        if ($language == "java") {
+            $execPath = "java -classpath {$workDir} Judge";
+            $sourcePath = $workDir . "/Judge.java";
+        } else {
+            $execPath = $workDir . "/" . uniqid(time());
+            $execPath = $this->truepath($execPath);
+            $sourcePath = $execPath . $suffix[$language];
+        }
+
+        $outputPath = $workDir . "/". uniqid(time());
+
         $sourceFileHandle = fopen($sourcePath, 'w');
         fwrite($sourceFileHandle, $code);
         fclose($sourceFileHandle);
 
         $sourcePath = realpath($sourcePath);
         $outputPath = $this->truepath($outputPath);
-        $execPath = $this->truepath($execPath);
 
         $message = [
+            "problemId" => $id,
+            "statusId" => $statusId,
             "sourceFile" => $sourcePath,
+            "workDir" => $workDir,
             "execFile" => $execPath,
             "language" => $language,
             "inputFile" => $problem['input_file'],
@@ -98,7 +115,6 @@ class Problem extends AbstractController {
                            "grunner",
                            AMQP_NOPARAM,
                            ["content_type" => "application/json"]);
-
         return new Redirect("/status/index");
 
     }

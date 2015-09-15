@@ -17,7 +17,7 @@
                 <tbody >
                     {% for problem in problems %}
                     <tr>
-                        <td width="33%">{{ loop.index0 }}</td>
+                        <td width="33%">{{ problem.id }}</td>
                         <td width="33%">
                             <a href="/problem/{{ problem.id }}">{{ problem.title }}</a>
                         </td>

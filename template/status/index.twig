@@ -1,4 +1,7 @@
 {% extends "common/framework.twig" %}
+{% block title %}
+    Status - {{ globalTitle }}
+{% endblock %}
 {% block contents %}
     <div class="wrapper">
         <div class="container">
@@ -6,19 +9,25 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <td width="25%">#</td>
-                    <td width="25%">Status</td>
-                    <td width="25%">Time Used</td>
-                    <td width="25%">Memory Used</td>
+                    <td width="14%">#</td>
+                    <td width="14%">Problem Id</td>
+                    <td width="14%">Status</td>
+                    <td width="14%">Language</td>
+                    <td width="14%">Time Used</td>
+                    <td width="14%">Memory Used</td>
+                    <td>Submit Time</td>
                 </tr>
                 </thead>
                 <tbody>
                 {% for status in statusList %}
                     <tr>
-                        <td>{{ loop.index0 }}</td>
-                        <td>{{ status.result }}</td>
-                        <td>{{ status.time_used }}</td>
-                        <td>{{ status.memory_used }}</td>
+                        <td>{{ status.id }}</td>
+                        <td><a href="/problem/{{ status.problem_id }}">{{ status.problem_id }}</a></td>
+                        <td>{{ status.result|result_filter }}</td>
+                        <td>{{ status.language }}</td>
+                        <td>{{ status.time_used }} MS</td>
+                        <td>{{ status.memory_used }} KB</td>
+                        <td>{{ status.create_time }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
