@@ -1,0 +1,28 @@
+{% extends "common/framework.twig" %}
+{% block contents %}
+    <div class="wrapper">
+        <div class="container">
+            <h3>Status</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td width="25%">#</td>
+                    <td width="25%">Status</td>
+                    <td width="25%">Time Used</td>
+                    <td width="25%">Memory Used</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for status in statusList %}
+                    <tr>
+                        <td>{{ loop.index0 }}</td>
+                        <td>{{ status.result }}</td>
+                        <td>{{ status.time_used }}</td>
+                        <td>{{ status.memory_used }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

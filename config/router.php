@@ -10,7 +10,8 @@ $routes = [
     "get:/" => 'Welcome#index',
     "get:/problem/[id]" => "Problem#detail",
     "get:/problem/[id]/submit" => "Problem#submitForm",
-    "post:/problem/[id]/submit" => "Problem#submit"
+    "post:/problem/[id]/submit" => "Problem#submit",
+    "get:/status/index" => "Status#index"
 
 ];
 

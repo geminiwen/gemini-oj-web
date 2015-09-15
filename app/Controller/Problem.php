@@ -14,6 +14,7 @@ use Gemini\Result\Twig;
 use L8\App;
 use L8\Helper\Globals;
 use L8\Mvc\Controller\AbstractController;
+use L8\Mvc\Result\Redirect;
 
 class Problem extends AbstractController {
     use Globals;
@@ -97,6 +98,8 @@ class Problem extends AbstractController {
                            "grunner",
                            AMQP_NOPARAM,
                            ["content_type" => "application/json"]);
+
+        return new Redirect("/status/index");
 
     }
 

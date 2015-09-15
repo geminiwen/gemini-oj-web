@@ -11,4 +11,7 @@ namespace Gemini\Model;
 
 class Status extends AbstractModel {
 
+    public function listAll($page, $pageSize) {
+        return $this->getTable()->listBy([], $page, $pageSize);
+    }
 }
