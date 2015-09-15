@@ -52,8 +52,10 @@ class Problem extends AbstractController {
     public function submit($id, $language, $code) {
         $statusDAO = new Status();
         $problemDAO = new \Gemini\Model\Problem();
+        $user = $_SESSION['user'];
 
         $status = $statusDAO->add([
+           "user_id" => $user['id'],
            "problem_id" => $id,
            "language" => $language,
            "code" => $code

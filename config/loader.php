@@ -14,10 +14,19 @@ if (!defined('__DEFINED__') || !__DEFINED__) {
     define('__DB_SERVER__', __DEV_HOST__ . ':oj');
 }
 
+\L8\App::prop('interceptor', [
+    "login" => '\Gemini\Interceptor\Login',
+    "session" => '\Gemini\Interceptor\Session',
+]);
+
+\L8\App::prop('server', [
+    'defaultInterceptor'    =>  'session'
+]);
 \L8\App::prop('global', require(__DIR__ . '/../config/global.php'));
 \L8\App::prop('exec.tmp.dir', __DIR__ . '/../tmp/');
 
 \L8\App::prop('server.controllerPrefix', '\Gemini\Controller');
 \L8\App::prop("result.templateDirectory", __DIR__ . '/../template');
+\L8\App::prop("password.salt", PASSWORD_BCRYPT);
 \L8\App::autoLoad(__DIR__ . '/../lib');
 \L8\App::autoLoad(__DIR__ . '/../app', 'Gemini');

@@ -6,7 +6,7 @@
  * Time: 下午12:32
  */
 
-namespace Gemini\controller;
+namespace Gemini\Controller;
 
 
 use Gemini\Model\Problem;

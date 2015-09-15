@@ -1,7 +1,17 @@
 <div class="global-nav">
     <div class="container nav">
-        SegmentFault Online Judge
+        <span>SegmentFault Online Judge</span>
+        <div class="pull-right user-info">
+            {% if sessionUser %}
+                欢迎您, <a href="/user/logout">{{ sessionUser.username }}</a>
+            {% else %}
+                <a href="/user/login">登陆</a>
+                <span>·</span>
+                <a href="/user/register">注册</a>
+            {% endif %}
+        </div>
     </div>
+
 
 </div>
 <nav class="container main-nav">

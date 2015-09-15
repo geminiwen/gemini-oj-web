@@ -16,7 +16,8 @@ class Status extends AbstractController {
     public function index($page = 1) {
         $statusDAO = new \Gemini\Model\Status();
         $statusList = $statusDAO->asValue(
-            $statusDAO->listAll($page, 30)
+            $statusDAO->listAll($page, 30),
+            ['id', '']
         );
 
         $response = [
