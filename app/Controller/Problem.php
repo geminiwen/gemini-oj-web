@@ -74,9 +74,12 @@ class Problem extends AbstractController {
 
         $workDir = App::prop("exec.tmp.dir") . uniqid(time());
         mkdir($workDir);
+        $workDir = $this->truepath($workDir);
 
+        $args = NULL;
         if ($language == "java") {
-            $execPath = "java -classpath {$workDir} Judge";
+            $execPath = "java";
+            $args = ["java", "-classpath", $workDir, "Judge"];
             $sourcePath = $workDir . "/Judge.java";
         } else {
             $execPath = $workDir . "/" . uniqid(time());
@@ -96,6 +99,7 @@ class Problem extends AbstractController {
         $message = [
             "problemId" => $id,
             "statusId" => $statusId,
+            "args" => $args,
             "sourceFile" => $sourcePath,
             "workDir" => $workDir,
             "execFile" => $execPath,
