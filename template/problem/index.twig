@@ -28,23 +28,23 @@
         <div class="problem-detail">
             <section>
                 <aside>Description</aside>
-                <blockquote>{{ problem.description }}</blockquote>
+                <pre>{{ problem.description }}</pre>
             </section>
             <section>
                 <aside>Input</aside>
-                <blockquote>{{ problem.input }}</blockquote>
+                <pre>{{ problem.input }}</pre>
             </section>
             <section>
                 <aside>Output</aside>
-                <blockquote>{{ problem.output }}</blockquote>
+                <pre>{{ problem.output }}</pre>
             </section>
             <section>
                 <aside>Sample Input</aside>
-                <blockquote>{{ problem.sample_input }}</blockquote>
+                <pre>{{ problem.sample_input }}</pre>
             </section>
             <section>
                 <aside>Sample Output</aside>
-                <blockquote>{{ problem.sample_output }}</blockquote>
+                <pre>{{ problem.sample_output }}</pre>
             </section>
             <div class="content-center">
                 <button type="button" class="btn btn-default" onclick="location.href='/problem/{{ problem.id }}/submit'">Submit</button>

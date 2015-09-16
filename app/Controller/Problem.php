@@ -99,6 +99,7 @@ class Problem extends AbstractController {
         $outputPath = $this->truepath($outputPath);
 
         $message = [
+            "userId" => $user['id'],
             "problemId" => $id,
             "statusId" => $statusId,
             "args" => $args,

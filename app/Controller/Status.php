@@ -17,7 +17,8 @@ class Status extends AbstractController {
         $statusDAO = new \Gemini\Model\Status();
         $statusList = $statusDAO->asValue(
             $statusDAO->listAll($page, 30),
-            ['id', '']
+            ['id', 'problem_id', 'result', 'language', 'time_used', 'memory_used', 'create_time',
+                'user' => ['id', 'username']]
         );
 
         $response = [

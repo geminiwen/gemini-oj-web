@@ -20,9 +20,12 @@ class Login implements InterceptorInterface{
      * @param ControllerEvent $event
      */
     public function intercept(ControllerEvent $event) {
-        if (!isset($_SESSION['login'])) {
+        if (!isset($_SESSION['user'])) {
             $event->setResult(new Redirect('/user/login'));
+            return;
         }
+
+        $event->invoke();
     }
 
 }

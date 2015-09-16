@@ -9,12 +9,13 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <td width="14%">#</td>
-                    <td width="14%">Problem Id</td>
-                    <td width="14%">Status</td>
-                    <td width="14%">Language</td>
-                    <td width="14%">Time Used</td>
-                    <td width="14%">Memory Used</td>
+                    <td width="12.5%">#</td>
+                    <td width="12.5%">Problem Id</td>
+                    <td width="12.5%">User</td>
+                    <td width="12.5%">Status</td>
+                    <td width="12.5%">Language</td>
+                    <td width="12.5%">Time Used</td>
+                    <td width="12.5%">Memory Used</td>
                     <td>Submit Time</td>
                 </tr>
                 </thead>
@@ -23,6 +24,7 @@
                     <tr>
                         <td>{{ status.id }}</td>
                         <td><a href="/problem/{{ status.problem_id }}">{{ status.problem_id }}</a></td>
+                        <td>{{ status.user.username }}</td>
                         <td>{{ status.result|result_filter }}</td>
                         <td>{{ status.language }}</td>
                         <td>{{ status.time_used }} MS</td>
