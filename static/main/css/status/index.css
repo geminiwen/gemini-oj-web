@@ -1,0 +1,20 @@
+.accept {
+    color: red;
+}
+
+.presentation-error {
+    color: rgb(255, 165, 0)
+}
+
+.wrong-answer,
+.time-limit-exceeded,
+.memory-limit-exceeded,
+.output-limit-exceeded,
+.runtime-error,
+.system-error {
+    color: rgb(0, 128, 0);
+}
+
+.compile-error {
+    color: rgb(102, 51, 255);
+}

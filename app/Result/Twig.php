@@ -61,45 +61,6 @@ class Twig extends AbstractResult
         //TODO add debug flag
         $this->_twig->addExtension(new \Twig_Extension_Debug());
 
-        $this->_twig->addFilter(new \Twig_SimpleFilter("result_filter", function ($string) {
-            switch ($string) {
-                case -2: {
-                    return "Waiting";
-                }
-                case -1: {
-                    return "Running";
-                }
-                case 0: {
-                    return "Accepted";
-                }
-                case 1: {
-                    return "Presentation Error";
-                }
-                case 2: {
-                    return "Time Limit Exceeded";
-                }
-                case 3: {
-                    return "Memory Limit Exceeded";
-                }
-                case 4: {
-                    return "Wrong Answer";
-                }
-                case 5: {
-                    return "Runtime Error";
-                }
-                case 6: {
-                    return "Output Limit Exceeded";
-                }
-                case 7: {
-                    return "Compile Error";
-                }
-                default: {
-                    return "System Error";
-                }
-            }
-        }));
-
-
         $this->_template = $template;
         $this->_data = $data;
     }
