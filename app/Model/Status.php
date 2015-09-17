@@ -14,4 +14,8 @@ class Status extends AbstractModel {
     public function listAll($page, $pageSize) {
         return $this->getTable()->listBy([], $page, $pageSize, ["id" => "DESC"]);
     }
+
+    public function count() {
+        return $this->getTable()->countBy([]);
+    }
 }

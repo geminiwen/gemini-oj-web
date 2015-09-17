@@ -28,23 +28,23 @@
         <div class="problem-detail">
             <section>
                 <aside>Description</aside>
-                <pre>{{ problem.description }}</pre>
+                <div class="panel-content">{{ problem.description|raw }}</div>
             </section>
             <section>
                 <aside>Input</aside>
-                <pre>{{ problem.input }}</pre>
+                <div class="panel-content">{{ problem.input|raw }}</div>
             </section>
             <section>
                 <aside>Output</aside>
-                <pre>{{ problem.output }}</pre>
+                <div class="panel-content">{{ problem.output|raw }}</div>
             </section>
             <section>
                 <aside>Sample Input</aside>
-                <pre>{{ problem.sample_input }}</pre>
+                <pre class="panel-content">{{ problem.sample_input }}</pre>
             </section>
             <section>
                 <aside>Sample Output</aside>
-                <pre>{{ problem.sample_output }}</pre>
+                <pre class="panel-content">{{ problem.sample_output }}</pre>
             </section>
             <div class="content-center submit-area">
                 <button type="button" class="btn btn-default" onclick="location.href='/problem/{{ problem.id }}/submit'">Submit</button>

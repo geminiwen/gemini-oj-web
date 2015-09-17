@@ -29,7 +29,11 @@
                         <td><a href="/problem/{{ status.problem_id }}">{{ status.problem_id }}</a></td>
                         <td>{{ status.user.username }}</td>
                         <td>
-                            {% if status.result == 0 %}
+                            {% if status.result == -2 %}
+                                <span class="waiting">Waiting..</span>
+                            {% elseif status.result == -1 %}
+                                <span class="running">Running..</span>
+                            {% elseif status.result == 0 %}
                                 <span class="accept">Accept</span>
                             {% elseif status.result == 1 %}
                                 <span class="presentation-error">Presentation Error</span>
@@ -57,6 +61,20 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <nav class="content-center">
+                <ul class="pagination">
+                    {% for i in 1..pageCount  %}
+                    <li><a href="/status/index?page={{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if page + 1 <= pageCount %}
+                    <li>
+                        <a href="/status/index?page={{ page+1 }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
         </div>
     </div>
 {% endblock %}

@@ -1,9 +1,14 @@
 .accept {
-    color: red;
+    color: rgb(0, 128, 0);
 }
 
 .presentation-error {
     color: rgb(255, 165, 0)
+}
+
+.waiting,
+.running {
+    color: rgb(128, 128, 256);
 }
 
 .wrong-answer,
@@ -12,7 +17,7 @@
 .output-limit-exceeded,
 .runtime-error,
 .system-error {
-    color: rgb(0, 128, 0);
+    color: red;
 }
 
 .compile-error {

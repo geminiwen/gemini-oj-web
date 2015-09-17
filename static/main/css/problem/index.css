@@ -18,6 +18,18 @@
     margin-bottom: 20px;
 }
 
+.panel-content {
+    background: none;
+    border-color: #008e59;
+    color: #555;
+    font-size: 15px;
+    margin: 18px 0;
+    padding: 10.5px 21px;
+    border:none;
+    border-left: 5px solid #008e59;
+    border-radius: 0;
+}
+
 .title {
     margin-bottom: 20px;
 }

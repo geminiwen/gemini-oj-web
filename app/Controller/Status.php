@@ -15,14 +15,21 @@ use L8\Mvc\Controller\AbstractController;
 class Status extends AbstractController {
     public function index($page = 1) {
         $statusDAO = new \Gemini\Model\Status();
+        $pageSize = 30;
+
         $statusList = $statusDAO->asValue(
-            $statusDAO->listAll($page, 30),
+            $statusDAO->listAll($page, $pageSize),
             ['id', 'problem_id', 'result', 'language', 'time_used', 'memory_used', 'create_time',
                 'user' => ['id', 'username']]
         );
 
+        $statusCount = $statusDAO->count();
+
+        $pageCount = ceil($statusCount / $pageSize);
         $response = [
-            "statusList" => $statusList
+            "statusList" => $statusList,
+            "page" => $page,
+            "pageCount" => $pageCount
         ];
 
 

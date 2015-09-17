@@ -29,4 +29,8 @@ class Problem extends AbstractModel
     public function setById($id, $data) {
         return $this->getTable()->setBy(["id" => $id], $data);
     }
+
+    public function count() {
+        return $this->getTable()->countBy([]);
+    }
 }
