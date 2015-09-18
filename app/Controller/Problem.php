@@ -19,6 +19,8 @@ use L8\Mvc\Result\Redirect;
 class Problem extends AbstractController {
     use Globals;
 
+    private $supportLanguages = ["c", "cpp", "javascript", "java"];
+
     public function detail($id) {
         $problemDAO = new \Gemini\Model\Problem();
         $problem = $problemDAO->asValue(
@@ -53,6 +55,20 @@ class Problem extends AbstractController {
         $statusDAO = new Status();
         $problemDAO = new \Gemini\Model\Problem();
         $user = $_SESSION['user'];
+        if (empty($code)) {
+            $response = [
+                "message" => "不允许提交空代码"
+            ];
+            return new Twig("common/error.twig", $response);
+        }
+
+        if (!in_array($language, $this->supportLanguages)) {
+            $response = [
+                "message" => "不支持的语言"
+            ];
+            return new Twig("common/error.twig", $response);
+        }
+
 
         $status = $statusDAO->add([
            "user_id" => $user['id'],
@@ -122,7 +138,7 @@ class Problem extends AbstractController {
                            "grunner",
                            AMQP_NOPARAM,
                            ["content_type" => "application/json"]);
-        return new Redirect("/status/index");
+        return new Redirect("/status");
 
     }
 
