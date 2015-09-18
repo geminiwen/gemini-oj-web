@@ -15,11 +15,8 @@
 
 </div>
 <nav class="container main-nav">
-    <table class="table">
-        <tr align="center">
-            <td width="50%"><a href="/">Problems</a></td>
-            <td width="50%"><a href="/status/index">Status</a></td>
-        </tr>
-    </table>
-    <hr />
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="{% if tab == "problem" %}active{% endif %}" ><a href="/">Problems</a></li>
+        <li role="presentation" class="{% if tab == "status" %}active{% endif %}"><a href="/status/index">Status</a></li>
+    </ul>
 </nav>
