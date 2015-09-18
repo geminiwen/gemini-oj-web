@@ -9,10 +9,12 @@
 namespace Gemini\Controller;
 
 
+use Gemini\Model\Problem;
 use Gemini\Result\Twig;
 use L8\Mvc\Controller\AbstractController;
 
 class Status extends AbstractController {
+
     public function index($page = 1) {
         $statusDAO = new \Gemini\Model\Status();
         $pageSize = 30;
@@ -35,6 +37,32 @@ class Status extends AbstractController {
 
         return new Twig("status/index.twig", $response);
 
+    }
+
+    public function problem($problemId, $page = 1) {
+        $problemDAO = new Problem();
+        $problemDAO->get($problemId);
+
+        $statusDAO = new \Gemini\Model\Status();
+        $pageSize = 30;
+
+        $statusList = $statusDAO->asValue(
+            $statusDAO->listByProblem($problemId, $page, $pageSize),
+            ['id', 'problem_id', 'result', 'language', 'time_used', 'memory_used', 'create_time',
+                'user' => ['id', 'username']]
+        );
+
+        $statusCount = $statusDAO->countByProblemId($problemId);
+
+        $pageCount = ceil($statusCount / $pageSize);
+
+        $response = [
+            "statusList" => $statusList,
+            "page" => $page,
+            "pageCount" => $pageCount
+        ];
+
+        return new Twig("status/index.twig", $response);
     }
 
 }

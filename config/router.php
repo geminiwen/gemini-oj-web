@@ -16,7 +16,8 @@ $routes = [
     "post:/user/register" => "User#register",
     "get:/user/login" => "User#loginForm",
     "post:/user/login" => "User#login",
-    "get:/user/logout" => "User#logout"
+    "get:/user/logout" => "User#logout",
+    "get:/status/[problemId]" => "Status#problem"
 ];
 
 return $routes;
