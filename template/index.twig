@@ -14,18 +14,18 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <td width="33%">#</td>
-                        <td width="33%">Title</td>
-                        <td width="33%">Difficulty Rate</td></tr>
+                        <td width="10%">#</td>
+                        <td>Title</td>
+                        <td width="20%">Difficulty Rate</td></tr>
                 </thead>
-                <tbody >
+                <tbody>
                     {% for problem in problems %}
                     <tr>
-                        <td width="33%">{{ problem.id }}</td>
-                        <td width="33%">
+                        <td>{{ problem.id }}</td>
+                        <td>
                             <a href="/problem/{{ problem.id }}">{{ problem.title }}</a>
                         </td>
-                        <td width="33%">
+                        <td>
                             {% if problem.submit == 0 %}
                              No submits
                             {% else %}
@@ -33,21 +33,13 @@
                             {% endif %}
                         </td>
                     </tr>
+                    {% else %}
+                        <tr><td colspan="3" align="center">Empty</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
             <nav class="content-center">
-                <ul class="pagination">
-                    {% for i in 1..pageCount  %}
-                    <li><a href="/?page={{ i }}">{{ i }}</a></li>
-                    {% endfor %}
-                    {% if page + 1 <= pageCount %}
-                    <li>
-                        <a href="/?page={{ page+1 }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
+                {{ pagenav(page, pageSize, total, "/?page=#page#") }}
             </nav>
         </div>
     </div>

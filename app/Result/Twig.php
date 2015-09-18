@@ -51,6 +51,46 @@ class Twig extends AbstractResult
 //            $this->_twig->addFunction(new \Twig_SimpleFunction($key, $val,
 //                ['needs_context' => true, 'needs_environment' => true]));
 //        }
+        $this->_twig->addFunction(new \Twig_SimpleFunction("pagenav", function (\Twig_Environment $env, $context, $current, $size, $total, $link) {
+            if (0 == $total) {
+                return;
+            }
+            $total = $size > 0 ? max(1, ceil($total / $size)) : 0;
+            $html = '<ul class="pagination">';
+            $current = min(max(1, $current), $total);
+            $from = max(1, $current - 2);
+            $to = min($total, $from + 4);
+            if ($current > 1) {
+                $html .= '<li class="prev"><a rel="prev" href="' . str_replace('#page#', $current - 1, $link) . '">上一页</a></li>';
+            }
+            if ($from > 1) {
+                $html .= '<li><a href="' . str_replace('#page#', 1, $link) . '">1</a></li>';
+            }
+            if ($from > 2) {
+                $html .= '<li class="disabled"><span>&hellip;</span></li>';
+            }
+            for($i = $from; $i <= $to; $i ++) {
+                $html .= '<li' . ($current == $i ? ' class="active"' : '')
+                    . '><a href="' . ($current == $i ? 'javascript:void(0);' : str_replace('#page#', $i, $link)) . '">' . $i . '</a></li>';
+            }
+            if ($to < $total - 1) {
+                $html .= '<li class="disabled"><span>&hellip;</span></li>';
+            }
+            /*
+            if ($to < $total) {
+                $html .= '<li><a href="' . str_replace('#page#', $total, $link) . '">' . $total . '</a></li>';
+            }
+            */
+            if ($current < $total) {
+                $html .= '<li class="next"><a rel="next" href="' . str_replace('#page#', $current + 1, $link) . '">下一页</a></li>';
+            }
+            $html .= '</ul>';
+            if ($total == 1) {
+                echo "";  // 内容只有一页时不显示页码
+            } else {
+                echo $html;
+            }
+        }, ['needs_context' => true, 'needs_environment' => true]));
 //        // add filters
 //        foreach ($extends['filters'] as $key => $val) {
 //            $this->_twig->addFilter(new \Twig_SimpleFilter($key, $val,

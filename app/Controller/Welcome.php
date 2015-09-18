@@ -17,18 +17,18 @@ class Welcome extends AbstractController
 {
     public function index($page = 1) {
         $problemDAO = new Problem();
-        $pageSize = 30;
+        $pageSize = 20;
         $problemList = $problemDAO->asValue(
             $problemDAO->listAll($page, $pageSize),
             ["id", "title", "accept", "submit"]
         );
 
         $problemCount = $problemDAO->count();
-        $pageCount = ceil($problemCount / $pageSize);
         $response =  [
             "problems" => $problemList,
             "page" => $page,
-            "pageCount" => $pageCount
+            "pageSize" => $pageSize,
+            "total" => $problemCount
         ];
 
         return new Twig("index.twig", $response);

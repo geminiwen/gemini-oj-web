@@ -59,22 +59,13 @@
                         <td>{{ status.memory_used }} KB</td>
                         <td>{{ status.create_time }}</td>
                     </tr>
+                {% else %}
+                    <tr><td colspan="8" align="center">Empty</td></tr>
                 {% endfor %}
                 </tbody>
             </table>
             <nav class="content-center">
-                <ul class="pagination">
-                    {% for i in 1..pageCount  %}
-                    <li><a href="/status/index?page={{ i }}">{{ i }}</a></li>
-                    {% endfor %}
-                    {% if page + 1 <= pageCount %}
-                    <li>
-                        <a href="/status/index?page={{ page+1 }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
+                {{ pagenav(page, pageSize, total, "/status/index?page=#page#") }}
             </nav>
         </div>
     </div>

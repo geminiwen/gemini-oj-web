@@ -17,7 +17,7 @@ class Status extends AbstractController {
 
     public function index($page = 1) {
         $statusDAO = new \Gemini\Model\Status();
-        $pageSize = 30;
+        $pageSize = 20;
 
         $statusList = $statusDAO->asValue(
             $statusDAO->listAll($page, $pageSize),
@@ -27,11 +27,11 @@ class Status extends AbstractController {
 
         $statusCount = $statusDAO->count();
 
-        $pageCount = ceil($statusCount / $pageSize);
         $response = [
             "statusList" => $statusList,
             "page" => $page,
-            "pageCount" => $pageCount
+            "pageSize" => $pageSize,
+            "total" => $statusCount
         ];
 
 
@@ -53,13 +53,10 @@ class Status extends AbstractController {
         );
 
         $statusCount = $statusDAO->countByProblemId($problemId);
-
-        $pageCount = ceil($statusCount / $pageSize);
-
         $response = [
             "statusList" => $statusList,
             "page" => $page,
-            "pageCount" => $pageCount
+            "total" => $statusCount
         ];
 
         return new Twig("status/index.twig", $response);
