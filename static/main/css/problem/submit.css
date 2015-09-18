@@ -4,11 +4,15 @@
 
 .text-code {
     width: 100%;
-    min-height: 500px;
+    min-height: 800px;
     outline: none;
     resize: none;
     tab-size: 4;
     padding: 6px 12px;
     margin-bottom: 15px;
+    display: none;
 }
+
+.CodeMirror {
+    height: 700px;
 }
