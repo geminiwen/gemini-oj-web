@@ -2,35 +2,18 @@
 /**
  * Created by IntelliJ IDEA.
  * User: geminiwen
- * Date: 15/9/14
- * Time: 下午2:19
+ * Date: 15/9/20
+ * Time: 下午1:29
  */
 
 namespace Gemini\Model;
 
 
-class Problem extends AbstractModel
-{
-    /**
-     * list all
-     *
-     * @param int $page
-     * @param int $pageSize
-     * @return array
-     */
-    public function listAll($page = 1, $pageSize = 30) {
-        return $this->getTable()->listBy([],
-                                         $page,
-                                         $pageSize,
-                                         NULL,
-                                         ["id", "title", "accept", "submit"]);
-    }
+use Illuminate\Database\Eloquent\Model;
 
-    public function setById($id, $data) {
-        return $this->getTable()->setBy(["id" => $id], $data);
-    }
+class Problem extends Model{
 
-    public function count() {
-        return $this->getTable()->countBy([]);
-    }
+    protected $table = "problem";
+    public $timestamps = false;
+
 }

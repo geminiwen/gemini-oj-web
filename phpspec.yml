@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Gemini
+        psr4_prefix: Gemini
+        src_path: app

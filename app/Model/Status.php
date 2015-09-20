@@ -2,30 +2,27 @@
 /**
  * Created by IntelliJ IDEA.
  * User: geminiwen
- * Date: 15/9/14
- * Time: 下午8:46
+ * Date: 15/9/20
+ * Time: 下午1:29
  */
 
 namespace Gemini\Model;
 
 
-class Status extends AbstractModel {
+use Illuminate\Database\Eloquent\Model;
 
-    public function listAll($page, $pageSize) {
-        return $this->getTable()->listBy([], $page, $pageSize, ["id" => "DESC"]);
+class Status extends Model{
+
+    protected $table = "status";
+    protected $guarded = [];
+    public $timestamps = false;
+
+
+    public function user() {
+        return $this->belongsTo('Gemini\Model\User', 'user_id')->select(['id', 'username']);
     }
 
-    public function listByProblem($problemId, $page, $pageSize) {
-        return $this->getTable()->listBy(["problem_id" => $problemId],
-                                          $page, $pageSize, ["id" => "DESC"]);
+    public function problem() {
+        return $this->belongsTo('Gemini\Model\Problem', 'problem_id');
     }
-
-    public function count() {
-        return $this->getTable()->countBy([]);
-    }
-
-    public function countByProblemId($problemId) {
-        return $this->getTable()->countBy(["problem_id" => $problemId]);
-    }
-
 }
