@@ -17,6 +17,7 @@ Route::get('/problem/{id}/submit', ['middleware' => 'auth', 'uses' => "ProblemCo
 Route::post('/problem/{id}/submit', ['middleware' => 'auth', 'uses' => "ProblemController@submit"]);
 
 Route::get('/status', "StatusController@index");
+Route::get('/status/problem/{id}', "StatusController@index");
 
 Route::get('/user/register', 'Auth\AuthController@getRegister');
 Route::post('/user/register', 'Auth\AuthController@postRegister');

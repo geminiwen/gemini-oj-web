@@ -49,7 +49,7 @@ Problem {{ $problem->title }}
         </section>
         <div class="content-center submit-area">
             <button type="button" class="btn btn-primary" onclick="location.href='/problem/{{ $problem->id }}/submit'">Submit</button>
-            <button type="button" class="btn btn-default" onclick="location.href='/status/{{ $problem->id }}'">Status</button>
+            <button type="button" class="btn btn-default" onclick="location.href='/status/problem/{{ $problem->id }}'">Status</button>
         </div>
     </div>
 

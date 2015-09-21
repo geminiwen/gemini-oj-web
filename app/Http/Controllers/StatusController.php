@@ -22,4 +22,14 @@ class StatusController extends Controller{
         ];
         return view("status/index", $response);
     }
+
+    public function problem($id) {
+        $statusList = Status::where("problem_id", $id)
+                              ->orderBy("id", "desc")
+                              ->paginate(20, ['id', 'problem_id', 'result', 'user_id', 'language', 'time_used', 'memory_used', 'create_time']);
+        $response = [
+            'statusList'=> $statusList
+        ];
+        return view("status/index", $response);
+    }
 }
