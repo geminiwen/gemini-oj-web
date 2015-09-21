@@ -15,5 +15,7 @@ class Problem extends Model{
 
     protected $table = "problem";
     public $timestamps = false;
+    public $fillable = ["title", "description", "input", "output",
+                        "sample_input", "sample_output", "input_file", "output_file"];
 
 }

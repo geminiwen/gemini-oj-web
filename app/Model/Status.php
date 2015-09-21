@@ -19,10 +19,12 @@ class Status extends Model{
 
 
     public function user() {
-        return $this->belongsTo('Gemini\Model\User', 'user_id')->select(['id', 'username']);
+        return $this->belongsTo('Gemini\Model\User', 'user_id')
+                    ->select(['id', 'username']);
     }
 
     public function problem() {
-        return $this->belongsTo('Gemini\Model\Problem', 'problem_id');
+        return $this->belongsTo('Gemini\Model\Problem', 'problem_id')
+                    ->select(["id", "title", "accept", "submit"]);
     }
 }
