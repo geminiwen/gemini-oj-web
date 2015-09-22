@@ -116,7 +116,7 @@ return [
         'cluster' => false,
 
         'default' => [
-            'host'     => '192.168.99.100',
+            'host'     => env("DB_HOST", "localhost"),
             'port'     => 6379,
             'database' => 0,
         ],
