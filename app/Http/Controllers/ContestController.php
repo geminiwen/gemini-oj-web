@@ -24,9 +24,8 @@ class ContestController extends Controller
     }
 
     public function detail($id) {
-        $pageCount = 20;
         $contestService = new ContestService();
-        $problems = $contestService->getProblemListByCId($id, $pageCount);
+        $problems = $contestService->getProblemListByContestId($id, ["id", "title", "accept", "submit"]);
         $response = [
             "problems" => $problems,
             "id" => $id
@@ -55,9 +54,20 @@ class ContestController extends Controller
         return view("contest.problem_submit", $response);
     }
 
-    public function status($id, $pid) {
+    public function problemStatus($id, $pid) {
         $contestService = new ContestService();
-        $statusList = $contestService->getStatus($id, $pid);
+        $statusList = $contestService->problemStatus($id, $pid);
+        $response = [
+            "statusList" => $statusList,
+            "id" => $id
+        ];
+
+        return view("contest.status", $response);
+    }
+
+    public function status($id) {
+        $contestService = new ContestService();
+        $statusList = $contestService->status($id);
         $response = [
             "statusList" => $statusList,
             "id" => $id
@@ -68,5 +78,15 @@ class ContestController extends Controller
 
     public function rankList($id) {
         $contestService = new ContestService();
+        $rankList = $contestService->rankList($id);
+        $problemList = $contestService->getProblemListByContestId($id, ['id'], NULL);
+
+        $response = [
+            "rankList" => $rankList,
+            "problems" => $problemList,
+            "id" => $id,
+        ];
+
+        return view("contest.rank_list", $response);
     }
 }

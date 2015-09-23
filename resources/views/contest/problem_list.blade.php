@@ -10,6 +10,7 @@
 @endsection
 
 @section("contents")
+    @include("common.contest_tab")
     <div class="wrapper">
         <div class="container">
             <h3>Problems</h3>

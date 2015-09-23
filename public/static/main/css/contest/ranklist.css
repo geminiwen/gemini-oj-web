@@ -1,0 +1,23 @@
+
+.table .title {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table .result {
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.resolved {
+    background: green;
+}
+
+.attempted {
+    background: red;
+}
+
+.first {
+    background: #43CD80;
+}

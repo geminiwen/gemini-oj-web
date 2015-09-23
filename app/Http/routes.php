@@ -28,6 +28,9 @@ Route::post('/user/login', 'Auth\AuthController@postLogin');
 
 Route::get("/contest", 'ContestController@index');
 Route::get("/contest/{id}", 'ContestController@detail');
+Route::get("/contest/{id}/status", 'ContestController@status');
 Route::get("/contest/{id}/problem/{pid}", 'ContestController@problem');
-Route::get("/contest/{id}/problem/{pid}/submit", 'ContestController@submitForm');
-Route::get("/contest/{id}/problem/{pid}/status", 'ContestController@status');
+Route::get("/contest/{id}/problem/{pid}/submit", ['middleware' => 'contest.time', 'uses' => 'ContestController@submitForm']);
+Route::post("/contest/{id}/problem/{pid}/submit", ['middleware' => 'contest.time', 'uses' => 'ContestController@submit']);
+Route::get("/contest/{id}/problem/{pid}/status", 'ContestController@problemStatus');
+Route::get("/contest/{id}/ranklist", 'ContestController@ranklist');
