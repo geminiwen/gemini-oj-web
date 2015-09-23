@@ -44,8 +44,10 @@ class ContestService {
     }
 
     public function getStatus($id, $pid, $column = ["*"], $pageCount = 20) {
-        $tableName = "contest_status_" .hash("md5", $id);
-        $query = DB::table($tableName)->where("problem_id", $pid);
+        $hashId = hash("md5", $id);
+        $statusTableName = "contest_status_" . $hashId;
+        $problemTableName = "contest_problem_" . $hashId;
+        $query = DB::table($statusTableName)->where("problem_id", $pid);
         $total = $query->getCountForPagination();
 
         $query->forPage(
@@ -58,7 +60,7 @@ class ContestService {
             $pid = $item->problem_id;
             $uid = $item->user_id;
 
-            $item->problem = Problem::find($pid);
+            $item->problem = DB::table($problemTableName)->find($pid);
             $item->user = User::find($uid);
         }
 
@@ -68,8 +70,32 @@ class ContestService {
         ]);
     }
 
-    public function rankList($id) {
+    public function rankList($id, $column = ['*'], $pageCount = 20) {
+        $hashId = hash("md5", $id);
+        $rankListTableName = "contest_ranklist_" . $hashId;
+        $problemTableName = "contest_problem_" . $hashId;
 
+        $query = DB::table($rankListTableName);
+        $total = $query->getCountForPagination();
+
+        $query->forPage(
+            $page = Paginator::resolveCurrentPage("page"),
+            $perPage = $pageCount
+        );
+
+        $items = $query->get($column);
+        foreach ($items as $item) {
+            $pid = $item->problem_id;
+            $uid = $item->user_id;
+
+            $item->problem = DB::table($problemTableName)->find($pid);
+            $item->user = User::find($uid);
+        }
+
+        return new LengthAwarePaginator($items, $total, $perPage, $page, [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => "page",
+        ]);
     }
 
 
