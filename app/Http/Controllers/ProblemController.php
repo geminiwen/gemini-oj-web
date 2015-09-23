@@ -14,20 +14,11 @@ use Gemini\Model\Problem;
 use Gemini\Model\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 class ProblemController extends Controller{
-
-
-    private $amqpConnection;
-
-    /**
-     * ProblemController constructor.
-     */
-    public function __construct() {
-        $this->amqpConnection = null;//$amqpConnection;
-    }
 
     public function index() {
         $problems = Problem::paginate(20, ["id", "title", "accept", "submit"]);
@@ -68,8 +59,11 @@ class ProblemController extends Controller{
         $language = $request->input("language");
 
         DB::transaction(function () use ($id, $code, $language, $suffix) {
+            $user = Auth::user();
+            $userId = $user->id;
+
             $status = Status::create([
-                "user_id" => 1,
+                "user_id" => $userId,
                 "problem_id" => $id,
                 "language" => $language,
                 "code" => $code
@@ -102,7 +96,7 @@ class ProblemController extends Controller{
             $sourcePath = realpath($sourcePath);
 
             $message = [
-                "userId" => 1,
+                "userId" => $userId,
                 "problemId" => $id,
                 "statusId" => $sid,
                 "args" => $args,
@@ -117,7 +111,7 @@ class ProblemController extends Controller{
                 "memoryLimit" => $problem['memory_limit']
             ];
 
-            $mqConnection = AMQP::getFacadeRoot();
+            $mqConnection = AMQP::get3FacadeRoot();
             $mqConnection->connect();
             $channel = new \AMQPChannel($mqConnection);
             $exchange = new \AMQPExchange($channel);
