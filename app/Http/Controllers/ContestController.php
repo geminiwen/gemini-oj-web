@@ -65,4 +65,8 @@ class ContestController extends Controller
 
         return view("contest.status", $response);
     }
+
+    public function rankList($id) {
+        $contestService = new ContestService();
+    }
 }

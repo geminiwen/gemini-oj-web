@@ -68,5 +68,9 @@ class ContestService {
         ]);
     }
 
+    public function rankList($id) {
+
+    }
+
 
 }
