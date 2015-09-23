@@ -9,7 +9,6 @@
 @endsection
 
 @section("contents")
-    @include("common.tab")
     <div class="wrapper">
         <div class="container">
             <h3>Status</h3>

@@ -48,10 +48,9 @@ Problem {{ $problem->title }}
             <pre class="panel-content">{!! $problem->sample_output !!}</pre>
         </section>
         <div class="content-center submit-area">
-            <button type="button" class="btn btn-primary" onclick="location.href='/problem/{{ $problem->id }}/submit'">Submit</button>
-            <button type="button" class="btn btn-default" onclick="location.href='/problem/{{ $problem->id }}/status'">Status</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='/contest/{{ $id }}/problem/{{ $problem->id }}/submit'">Submit</button>
+            <button type="button" class="btn btn-default" onclick="location.href='/contest/{{ $id }}/problem/{{ $problem->id }}/status'">Status</button>
         </div>
     </div>
-
 </div>
 @endsection

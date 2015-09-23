@@ -17,7 +17,7 @@ Route::get('/problem/{id}/submit', ['middleware' => 'auth', 'uses' => "ProblemCo
 Route::post('/problem/{id}/submit', ['middleware' => 'auth', 'uses' => "ProblemController@submit"]);
 
 Route::get('/status', "StatusController@index");
-Route::get('/status/problem/{id}', "StatusController@problem");
+Route::get('/problem/{id}/status', "StatusController@problem");
 
 Route::get('/user/register', 'Auth\AuthController@getRegister');
 Route::post('/user/register', 'Auth\AuthController@postRegister');
@@ -25,3 +25,9 @@ Route::post('/user/register', 'Auth\AuthController@postRegister');
 Route::get('/user/login', 'Auth\AuthController@getLogin');
 Route::get('/user/logout', 'Auth\AuthController@getLogout');
 Route::post('/user/login', 'Auth\AuthController@postLogin');
+
+Route::get("/contest", 'ContestController@index');
+Route::get("/contest/{id}", 'ContestController@detail');
+Route::get("/contest/{id}/problem/{pid}", 'ContestController@problem');
+Route::get("/contest/{id}/problem/{pid}/submit", 'ContestController@submitForm');
+Route::get("/contest/{id}/problem/{pid}/status", 'ContestController@status');

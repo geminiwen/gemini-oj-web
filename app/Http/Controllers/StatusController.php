@@ -20,7 +20,7 @@ class StatusController extends Controller{
         $response = [
             'statusList'=> $statusList
         ];
-        return view("status/index", $response);
+        return view("status.index", $response);
     }
 
     public function problem($id) {
@@ -30,6 +30,6 @@ class StatusController extends Controller{
         $response = [
             'statusList'=> $statusList
         ];
-        return view("status/index", $response);
+        return view("problem.status", $response);
     }
 }

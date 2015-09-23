@@ -10,7 +10,6 @@
 @endsection
 
 @section("contents")
-    @include("common.tab")
     <div class="wrapper">
         <div class="container">
             <h3>Problems</h3>
@@ -26,7 +25,7 @@
                 <tr>
                     <td>{{ $problem->id }}</td>
                     <td>
-                        <a href="/problem/{{ $problem->id }}">{{ $problem->title }}</a>
+                        <a href="/contest/{{ $id  }}/problem/{{ $problem->id }}">{{ $problem->title }}</a>
                     </td>
                     <td>
                         @if($problem->submit == 0)
