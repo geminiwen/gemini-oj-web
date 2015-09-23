@@ -140,12 +140,11 @@ return [
         /*
          * Application Service Providers...
          */
-        Gemini\Providers\AMQPServiceProvider::class,
         Gemini\Providers\AppServiceProvider::class,
         Gemini\Providers\AuthServiceProvider::class,
         Gemini\Providers\EventServiceProvider::class,
         Gemini\Providers\RouteServiceProvider::class,
-
+        Gemini\Providers\AMQPServiceProvider::class,
     ],
 
     /*

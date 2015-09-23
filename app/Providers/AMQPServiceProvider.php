@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 class AMQPServiceProvider extends ServiceProvider
 {
 
-    protected $defer = TRUE;
 
     /**
      * Bootstrap the application services.

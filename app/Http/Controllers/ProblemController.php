@@ -111,7 +111,7 @@ class ProblemController extends Controller{
                 "memoryLimit" => $problem['memory_limit']
             ];
 
-            $mqConnection = AMQP::get3FacadeRoot();
+            $mqConnection = AMQP::getFacadeRoot();
             $mqConnection->connect();
             $channel = new \AMQPChannel($mqConnection);
             $exchange = new \AMQPExchange($channel);
