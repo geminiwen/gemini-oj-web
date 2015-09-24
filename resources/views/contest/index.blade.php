@@ -17,6 +17,7 @@
                 <tr>
                     <td width="10%">#</td>
                     <td>Title</td>
+                    <td>Type</td>
                     <td>Start Time</td>
                 </thead>
                 <tbody>
@@ -25,6 +26,9 @@
                         <td>{{ $contest->id }}</td>
                         <td>
                             <a href="/contest/{{ $contest->id }}">{{ $contest->title }}</a>
+                        </td>
+                        <td>
+                            {{ $contest->is_secret ? "Private": "Public" }}
                         </td>
                         <td>
                             {{ $contest->start_time }}
