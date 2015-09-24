@@ -55,7 +55,7 @@ class ContestService {
         $hashId = hash("md5", $id);
         $statusTableName = "contest_status_" . $hashId;
         $problemTableName = "contest_problem_" . $hashId;
-        $query = DB::table($statusTableName)->where("problem_id", $pid);
+        $query = DB::table($statusTableName)->where("problem_id", $pid)->orderBy("id", "desc");
         $total = $query->getCountForPagination();
 
         $query->forPage(
@@ -82,7 +82,7 @@ class ContestService {
         $hashId = hash("md5", $id);
         $statusTableName = "contest_status_" . $hashId;
         $problemTableName = "contest_problem_" . $hashId;
-        $query = DB::table($statusTableName);
+        $query = DB::table($statusTableName)->orderBy("id", "desc");
         $total = $query->getCountForPagination();
 
         $query->forPage(
@@ -168,7 +168,7 @@ class ContestService {
             $problemTableName = "contest_problem_" . $hashId;
 
             $sid = DB::table($statusTableName)
-                ->inserGetId([
+                ->insertGetId([
                     "user_id" => $userId,
                     "problem_id" => $id,
                     "language" => $language,
@@ -210,11 +210,11 @@ class ContestService {
                 "workDir" => $workDir,
                 "execFile" => $execPath,
                 "language" => $language,
-                "inputFile" => $problem['input_file'],
+                "inputFile" => $problem->input_file,
                 "outputFile" => $outputPath,
-                "sampleFile" => $problem['output_file'],
-                "timeLimit" => $problem['time_limit'],
-                "memoryLimit" => $problem['memory_limit']
+                "sampleFile" => $problem->output_file,
+                "timeLimit" => $problem->time_limit,
+                "memoryLimit" => $problem->memory_limit
             ];
 
             $mqConnection = AMQP::getFacadeRoot();
