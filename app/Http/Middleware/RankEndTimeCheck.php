@@ -12,7 +12,7 @@ namespace Gemini\Http\Middleware;
 use Closure;
 use Gemini\Model\Contest;
 
-class RankTimeCheck {
+class RankEndTimeCheck {
 
     public function handle($request, Closure $next) {
         $id = $request->route("id");
@@ -20,10 +20,10 @@ class RankTimeCheck {
 
         $currentTime = time();
 
-        $startTime = strtotime($contest->start_time);
+        $endTime = strtotime($contest->end_time);
 
-        if ($currentTime < $startTime) {
-            return response("Contest Not Start", "404");
+        if ($currentTime > $endTime) {
+            return response("Contest Ended", "404");
         }
         return $next($request);
     }
