@@ -1,6 +1,6 @@
 <div class="global-nav">
     <div class="container nav">
-        <a href="/" style="text-decoration: none"><span>Gemini Online Judge</span></a>
+        <a href="/" style="text-decoration: none"><span>Online Judge</span></a>
         <div class="pull-right user-info">
             @if ($user = Auth::user())
                 Welcome, <a href="/user/logout">{{ $user->username }}</a>
