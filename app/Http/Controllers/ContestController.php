@@ -102,6 +102,7 @@ class ContestController extends Controller
     public function decrypt(Request $request, $id)  {
         $contest = Contest::find($id);
         $password = $contest->password;
+        //TODO check input
 
         $inputPassword = $request->input("password");
 
@@ -113,5 +114,16 @@ class ContestController extends Controller
         } else {
             return response("password error", 404);
         }
+    }
+
+    public function submit(Request $request, $id, $pid) {
+        $code = $request->input("code", "");
+        $language = $request->input("language", "");
+        //TODO check input
+        $contestService = new ContestService();
+        $contestService->submit($code, $language, $pid, $id);
+        $url = sprintf("/contest/%d/status", $id);
+        return redirect($url);
+
     }
 }

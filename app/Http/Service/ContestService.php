@@ -9,10 +9,12 @@
 namespace Gemini\Http\Service;
 
 
+use Gemini\Facades\AMQP;
 use Gemini\Model\Problem;
 use Gemini\Model\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ContestService {
@@ -148,6 +150,82 @@ class ContestService {
             'path' => Paginator::resolveCurrentPath(),
             'pageName' => "page",
         ]);
+    }
+
+    public function submit($code, $language, $pid, $id) {
+        $suffix = [
+            "c" => ".c",
+            "cpp" => ".cpp",
+            "java" => ".java",
+            "javascript" => ".js"
+        ];
+        DB::transaction(function () use ($pid, $id, $code, $language, $suffix) {
+            $user = Auth::user();
+            $userId = $user->id;
+
+            $hashId = hash("md5", $id);
+            $statusTableName = "contest_status_" . $hashId;
+            $problemTableName = "contest_problem_" . $hashId;
+
+            $sid = DB::table($statusTableName)
+                ->inserGetId([
+                    "user_id" => $userId,
+                    "problem_id" => $id,
+                    "language" => $language,
+                    "code" => $code
+                ]);
+
+            $query = DB::table($problemTableName);
+            $problem = $query->find($pid);
+            $query->increment("submit");
+
+            $workDir = storage_path("tmp") . uniqid(time());
+            mkdir($workDir);
+
+            $args = NULL;
+            if ($language == "java") {
+                $execPath = "java";
+                $args = ["java", "-classpath", $workDir, "Judge"];
+                $sourcePath = $workDir . "/Judge.java";
+            } else {
+                $execPath = $workDir . "/" . uniqid(time());
+                $sourcePath = $execPath . $suffix[$language];
+            }
+
+            $outputPath = $workDir . "/". uniqid(time());
+
+            $sourceFileHandle = fopen($sourcePath, 'w');
+            fwrite($sourceFileHandle, $code);
+            fclose($sourceFileHandle);
+
+            $sourcePath = realpath($sourcePath);
+
+            $message = [
+                "userId" => $userId,
+                "problemId" => $pid,
+                "contestId" => $id,
+                "statusId" => $sid,
+                "args" => $args,
+                "sourceFile" => $sourcePath,
+                "workDir" => $workDir,
+                "execFile" => $execPath,
+                "language" => $language,
+                "inputFile" => $problem['input_file'],
+                "outputFile" => $outputPath,
+                "sampleFile" => $problem['output_file'],
+                "timeLimit" => $problem['time_limit'],
+                "memoryLimit" => $problem['memory_limit']
+            ];
+
+            $mqConnection = AMQP::getFacadeRoot();
+            $mqConnection->connect();
+            $channel = new \AMQPChannel($mqConnection);
+            $exchange = new \AMQPExchange($channel);
+            $exchange->publish(json_encode($message),
+                "grunner",
+                AMQP_NOPARAM,
+                ["content_type" => "application/json"]);
+        });
     }
 
 

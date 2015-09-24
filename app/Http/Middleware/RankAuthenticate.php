@@ -19,10 +19,6 @@ class RankAuthenticate {
         $contest = Contest::find($id);
 
         $hashId = "contest_id_" . hash("sha1", $id);
-        $id = $request->route("id");
-        $contest = Contest::find($id);
-
-        $hashId = "contest_id_" . hash("sha1", $id);
 
         $isSecret = $contest->is_secret;
         $password = $contest->password;
