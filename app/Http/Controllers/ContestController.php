@@ -11,6 +11,7 @@ namespace Gemini\Http\Controllers;
 
 use Gemini\Http\Service\ContestService;
 use Gemini\Model\Contest;
+use Illuminate\Http\Request;
 
 class ContestController extends Controller
 {
@@ -88,5 +89,29 @@ class ContestController extends Controller
         ];
 
         return view("contest.rank_list", $response);
+    }
+
+    public function decryptForm($id) {
+        $response = [
+            "id" => $id
+        ];
+
+        return view("contest.decrypt", $response);
+    }
+
+    public function decrypt(Request $request, $id)  {
+        $contest = Contest::find($id);
+        $password = $contest->password;
+
+        $inputPassword = $request->input("password");
+
+        $hashId = "contest_id_" . hash("sha1", $id);
+
+        if ($password == $inputPassword) {
+            $request->session()->put($hashId, $password);
+            return redirect()->intended("/contest");
+        } else {
+            return response("password error", 404);
+        }
     }
 }

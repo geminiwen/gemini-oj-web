@@ -18,10 +18,22 @@ class RankAuthenticate {
         $id = $request->route("id");
         $contest = Contest::find($id);
 
-        $isSecret = $contest->is_secret;
+        $hashId = "contest_id_" . hash("sha1", $id);
+        $id = $request->route("id");
+        $contest = Contest::find($id);
 
-        if ($isSecret) {
-            return response("Contest is Private", 404);
+        $hashId = "contest_id_" . hash("sha1", $id);
+
+        $isSecret = $contest->is_secret;
+        $password = $contest->password;
+
+        $session = $request->session();
+
+        $decrypt = $session->get($hashId, "");
+
+        if ($isSecret && $decrypt != $password) {
+            $url = sprintf("/contest/%d/decrypt", $id);
+            return redirect()->guest($url);
         }
         return $next($request);
     }

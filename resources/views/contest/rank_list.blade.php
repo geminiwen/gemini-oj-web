@@ -14,7 +14,7 @@
     <div class="wrapper">
         <div class="container">
             <h3>RankList</h3>
-            <table class="table">
+            <table class="table" border="0" align="center" cellspacing="2">
                 <thead>
                 <tr valign="middle">
                     <td class="title">User</td>

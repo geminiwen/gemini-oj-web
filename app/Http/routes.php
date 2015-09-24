@@ -27,10 +27,34 @@ Route::get('/user/logout', 'Auth\AuthController@getLogout');
 Route::post('/user/login', 'Auth\AuthController@postLogin');
 
 Route::get("/contest", 'ContestController@index');
-Route::get("/contest/{id}", 'ContestController@detail');
+
+Route::get("/contest/{id}", [
+    'middleware' => ['auth', 'contest.time', 'contest'],
+    'uses' => 'ContestController@detail'
+]);
 Route::get("/contest/{id}/status", 'ContestController@status');
-Route::get("/contest/{id}/problem/{pid}", 'ContestController@problem');
-Route::get("/contest/{id}/problem/{pid}/submit", ['middleware' => 'contest.time', 'uses' => 'ContestController@submitForm']);
-Route::post("/contest/{id}/problem/{pid}/submit", ['middleware' => 'contest.time', 'uses' => 'ContestController@submit']);
 Route::get("/contest/{id}/problem/{pid}/status", 'ContestController@problemStatus');
+
+Route::get("/contest/{id}/problem/{pid}", [
+    'middleware' => ['auth', 'contest', 'contest.time'],
+    'uses' => 'ContestController@problem'
+]);
+
+Route::get("/contest/{id}/problem/{pid}/submit", [
+    'middleware' => ['auth', 'contest', 'contest.time'],
+    'uses' => 'ContestController@submitForm'
+]);
+Route::post("/contest/{id}/problem/{pid}/submit", [
+    'middleware' => ['auth', 'contest', 'contest.time'],
+    'uses' => 'ContestController@submit']);
+
 Route::get("/contest/{id}/ranklist", 'ContestController@ranklist');
+
+Route::get("/contest/{id}/decrypt", [
+    'middleware' => ['auth'],
+    'uses' => 'ContestController@decryptForm'
+]);
+Route::post("/contest/{id}/decrypt", [
+    'middleware' => ['auth'],
+    'uses' => 'ContestController@decrypt'
+]);

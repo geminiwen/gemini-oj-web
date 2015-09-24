@@ -1,3 +1,7 @@
+.table {
+    border-collapse: initial;
+    border-spacing: 2px;
+}
 
 .table .title {
     vertical-align: middle;
@@ -20,4 +24,14 @@
 
 .first {
     background: #43CD80;
+}
+
+.table thead td {
+    background: #008E59;
+    color: white;
+}
+
+.table thead td a {
+    color: white;
+    text-decoration: none;
 }

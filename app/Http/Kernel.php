@@ -29,6 +29,7 @@ class Kernel extends HttpKernel
         'auth' => \Gemini\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \Gemini\Http\Middleware\RedirectIfAuthenticated::class,
+        'contest' => \Gemini\Http\Middleware\RankAuthenticate::class,
         'contest.time' => \Gemini\Http\Middleware\RankTimeCheck::class,
     ];
 }
